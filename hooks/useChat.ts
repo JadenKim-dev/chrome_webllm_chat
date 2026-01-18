@@ -1,12 +1,12 @@
 import { useState, useCallback } from 'react';
-import { ChatMessage } from '@/types/chat';
+import type { Message } from '@/types/chat';
 
 export function useChatMessages() {
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
 
-  const addMessage = useCallback((message: Omit<ChatMessage, 'id' | 'timestamp'>) => {
-    const newMessage: ChatMessage = {
+  const addMessage = useCallback((message: Omit<Message, 'id' | 'timestamp'>) => {
+    const newMessage: Message = {
       ...message,
       id: crypto.randomUUID(),
       timestamp: Date.now()

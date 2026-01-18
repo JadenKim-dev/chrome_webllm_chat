@@ -1,5 +1,5 @@
 import { MLCEngine } from '@mlc-ai/web-llm';
-import { ChatMessage } from '@/types/chat';
+import type { Message } from '@/types/chat';
 
 /**
  * Generate streaming response using WebLLM engine.
@@ -13,7 +13,7 @@ import { ChatMessage } from '@/types/chat';
  */
 export async function generateStreamingResponse(
   engine: MLCEngine,
-  messages: ChatMessage[],
+  messages: Message[],
   onToken: (token: string) => void,
   onComplete: () => void
 ): Promise<void> {
