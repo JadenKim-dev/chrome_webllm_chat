@@ -45,6 +45,10 @@ export function useChatMessages() {
     [updateMessage],
   );
 
+  const clearMessages = useCallback(() => {
+    setMessages([]);
+  }, []);
+
   const sendMessage = useCallback(
     async (content: string) => {
       if (engineState !== 'ready' || !engine) {
@@ -99,5 +103,6 @@ export function useChatMessages() {
     engineError,
     retryEngine: retryInitialization,
     sendMessage,
+    clearMessages,
   };
 }

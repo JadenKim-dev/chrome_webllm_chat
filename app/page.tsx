@@ -4,6 +4,8 @@ import { useChatMessages } from '@/hooks/useChat';
 import { MessageList } from '@/components/MessageList';
 import { ChatInput } from '@/components/ChatInput';
 import { ModelLoadingScreen } from '@/components/ModelLoadingScreen';
+import { WebGPUGuard } from '@/components/WebGPUGuard';
+import { Button } from '@/components/ui/button';
 
 export default function Home() {
   const {
@@ -15,6 +17,7 @@ export default function Home() {
     loadMessage,
     engineError,
     retryEngine,
+    clearMessages,
   } = useChatMessages();
 
   if (engineState === 'loading' || engineState === 'idle') {
@@ -40,9 +43,19 @@ export default function Home() {
   }
 
   return (
-    <div className="flex flex-col h-screen">
-      <MessageList messages={messages} className="flex-1" />
-      <ChatInput onSend={sendMessage} isGenerating={isGenerating} />
-    </div>
+    <WebGPUGuard>
+      <div className="flex flex-col h-screen">
+        <header className="border-b p-4">
+          <div className="flex items-center justify-between">
+            <h1 className="text-xl font-semibold">Browser LLM Chat</h1>
+            <Button onClick={clearMessages} variant="outline" size="sm">
+              New Chat
+            </Button>
+          </div>
+        </header>
+        <MessageList messages={messages} className="flex-1" />
+        <ChatInput onSend={sendMessage} isGenerating={isGenerating} />
+      </div>
+    </WebGPUGuard>
   );
 }
