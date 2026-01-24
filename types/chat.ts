@@ -10,3 +10,12 @@ export interface ChatState {
   isGenerating: boolean;
   error: string | null;
 }
+
+export type EngineState = 'idle' | 'loading' | 'ready' | 'error';
+
+export interface EngineStatus {
+  state: EngineState;
+  progress: number;
+  message: string;
+  error: string | null;
+}
